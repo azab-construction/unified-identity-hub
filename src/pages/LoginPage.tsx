@@ -28,7 +28,7 @@ const accountTypes = {
     icon: <User className="w-12 h-12 text-white" />,
     title: "بوابة العملاء",
     subtitle: "اطلب خدمات الصيانة وتتبع طلباتك بسهولة",
-    accent: "bg-blue-600",
+    accent: "gradient-hero-vivid",
     label: "عميل",
     signupPath: "/signup/client",
   },
@@ -60,14 +60,14 @@ const LoginPage = () => {
         </div>
 
         {/* Account Type Selector */}
-        <div className="flex gap-2 p-1 bg-muted rounded-xl">
+        <div className="flex gap-1.5 p-1.5 bg-muted/80 rounded-xl border border-border/50">
           {(Object.keys(accountTypes) as AccountType[]).map((type) => (
             <button
               key={type}
               onClick={() => setSelectedType(type)}
               className={`flex-1 py-2.5 px-3 rounded-lg text-sm font-medium transition-all duration-200 ${
                 selectedType === type
-                  ? "bg-card text-foreground shadow-sm"
+                  ? "bg-card text-foreground shadow-sm border border-border/50"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -89,7 +89,7 @@ const LoginPage = () => {
               <Label htmlFor="email">البريد الإلكتروني</Label>
               <div className="relative">
                 <Mail className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input id="email" type="email" placeholder="example@email.com" className="pr-10" dir="ltr" />
+                <Input id="email" type="email" placeholder="example@email.com" className="pr-10 h-11 rounded-xl" dir="ltr" />
               </div>
             </div>
 
@@ -106,20 +106,22 @@ const LoginPage = () => {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
-                  className="pr-10 pl-10"
+                  className="pr-10 pl-10 h-11 rounded-xl"
                   dir="ltr"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
 
-            <Button className="w-full h-11 text-base">تسجيل الدخول</Button>
+            <Button className="w-full h-11 text-base rounded-xl shadow-md hover:shadow-lg transition-shadow">
+              تسجيل الدخول
+            </Button>
 
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
@@ -131,7 +133,7 @@ const LoginPage = () => {
             </div>
 
             <div className="flex gap-3">
-              <Button variant="outline" className="flex-1 h-11 gap-2">
+              <Button variant="outline" className="flex-1 h-11 gap-2 rounded-xl hover:shadow-sm transition-shadow">
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
@@ -140,7 +142,7 @@ const LoginPage = () => {
                 </svg>
                 Google
               </Button>
-              <Button variant="outline" className="flex-1 h-11 gap-2">
+              <Button variant="outline" className="flex-1 h-11 gap-2 rounded-xl hover:shadow-sm transition-shadow">
                 <svg className="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                 </svg>
