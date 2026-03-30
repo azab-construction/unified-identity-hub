@@ -75,9 +75,11 @@ const AccountTypeCards = () => {
               ))}
             </ul>
 
-            <Button className="w-full mt-auto gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              {type.buttonLabel}
+            <Button className="w-full mt-auto gap-2" asChild>
+              <Link to={type.path}>
+                <ArrowLeft className="w-4 h-4" />
+                {type.buttonLabel}
+              </Link>
             </Button>
           </motion.div>
         ))}
