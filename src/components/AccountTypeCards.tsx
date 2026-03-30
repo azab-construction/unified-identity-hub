@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Building2, Wrench, User, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const accountTypes = [
   {
@@ -10,6 +11,7 @@ const accountTypes = [
     features: ["إدارة الموظفين والفنيين", "التقارير والتحليلات", "إدارة العقود"],
     color: "bg-primary/10 text-primary",
     buttonLabel: "التسجيل كشركة",
+    path: "/signup/company",
   },
   {
     icon: Wrench,
@@ -18,6 +20,7 @@ const accountTypes = [
     features: ["استقبال طلبات العمل", "إدارة المواعيد", "تتبع الأرباح"],
     color: "bg-accent/10 text-accent",
     buttonLabel: "التسجيل كفني",
+    path: "/signup/technician",
   },
   {
     icon: User,
@@ -26,6 +29,7 @@ const accountTypes = [
     features: ["طلب خدمات الصيانة", "تتبع حالة الطلبات", "تقييم الخدمات"],
     color: "bg-blue-500/10 text-blue-600",
     buttonLabel: "التسجيل كعميل",
+    path: "/signup/client",
   },
 ];
 
@@ -71,9 +75,11 @@ const AccountTypeCards = () => {
               ))}
             </ul>
 
-            <Button className="w-full mt-auto gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              {type.buttonLabel}
+            <Button className="w-full mt-auto gap-2" asChild>
+              <Link to={type.path}>
+                <ArrowLeft className="w-4 h-4" />
+                {type.buttonLabel}
+              </Link>
             </Button>
           </motion.div>
         ))}

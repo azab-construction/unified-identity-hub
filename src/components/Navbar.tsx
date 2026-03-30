@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   { label: "الرئيسية", href: "#" },
@@ -45,8 +46,8 @@ const Navbar = () => {
             <Globe className="w-4 h-4" />
             العربية
           </Button>
-          <Button variant="outline" size="sm">تسجيل الدخول</Button>
-          <Button size="sm">إنشاء حساب</Button>
+          <Button variant="outline" size="sm" asChild><Link to="/login">تسجيل الدخول</Link></Button>
+          <Button size="sm" asChild><Link to="/signup/client">إنشاء حساب</Link></Button>
         </div>
 
         {/* Mobile Menu */}
@@ -70,8 +71,8 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="flex gap-2 pt-2">
-                <Button variant="outline" size="sm" className="flex-1">تسجيل الدخول</Button>
-                <Button size="sm" className="flex-1">إنشاء حساب</Button>
+                <Button variant="outline" size="sm" className="flex-1" asChild><Link to="/login">تسجيل الدخول</Link></Button>
+                <Button size="sm" className="flex-1" asChild><Link to="/signup/client">إنشاء حساب</Link></Button>
               </div>
             </div>
           </motion.div>
