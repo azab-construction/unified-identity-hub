@@ -37,9 +37,11 @@
     --radius: 0.75rem;
 
     --hero-gradient: linear-gradient(135deg, hsl(217, 71%, 45%) 0%, hsl(220, 60%, 30%) 100%);
+    --hero-gradient-vivid: linear-gradient(135deg, hsl(217, 80%, 50%) 0%, hsl(230, 70%, 35%) 50%, hsl(217, 71%, 45%) 100%);
     --card-shadow: 0 4px 24px -4px hsl(217 71% 45% / 0.08);
-    --card-shadow-hover: 0 8px 32px -4px hsl(217 71% 45% / 0.15);
+    --card-shadow-hover: 0 12px 40px -8px hsl(217 71% 45% / 0.18);
     --glow-primary: 0 0 40px hsl(217 71% 45% / 0.2);
+    --glow-accent: 0 0 40px hsl(170 60% 45% / 0.2);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -59,6 +61,7 @@
 
   html {
     direction: rtl;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -79,6 +82,10 @@
     background: var(--hero-gradient);
   }
 
+  .gradient-hero-vivid {
+    background: var(--hero-gradient-vivid);
+  }
+
   .shadow-card {
     box-shadow: var(--card-shadow);
   }
@@ -90,20 +97,39 @@
   .glow-primary {
     box-shadow: var(--glow-primary);
   }
+
+  .glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+
+  .glass {
+    background: hsl(var(--card) / 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glass-strong {
+    background: hsl(var(--card) / 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .text-gradient {
+    background: var(--hero-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
 /* Cinematic strip animation */
 @keyframes scroll-strip {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .animate-scroll-strip {
-  animation: scroll-strip 20s linear infinite;
+  animation: scroll-strip 25s linear infinite;
 }
 
 /* Subtle floating animation */
@@ -114,4 +140,29 @@
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse ring */
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 0; }
+  100% { transform: scale(0.9); opacity: 0; }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2.5s ease-in-out infinite;
+}
+
+/* Grid pattern background */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(hsl(var(--border) / 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--border) / 0.4) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Dot pattern background */
+.bg-dot-pattern {
+  background-image: radial-gradient(hsl(var(--muted-foreground) / 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
