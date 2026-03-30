@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Building2, Wrench, User, Mail, Lock, Eye, EyeOff, UserCircle, Phone } from "lucide-react";
+import { Building2, Wrench, User, Mail, Lock, Eye, EyeOff, UserCircle, Phone, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,7 +35,7 @@ const accountConfig = {
     icon: <User className="w-12 h-12 text-white" />,
     title: "تسجيل عميل جديد",
     subtitle: "أنشئ حسابك واطلب خدمات الصيانة بسهولة",
-    accent: "bg-blue-600",
+    accent: "gradient-hero-vivid",
     label: "عميل",
     extraFields: [],
   },
@@ -43,11 +43,46 @@ const accountConfig = {
 
 type AccountType = keyof typeof accountConfig;
 
+const PasswordStrength = ({ password }: { password: string }) => {
+  const getStrength = () => {
+    if (!password) return 0;
+    let s = 0;
+    if (password.length >= 6) s++;
+    if (password.length >= 10) s++;
+    if (/[A-Z]/.test(password)) s++;
+    if (/[0-9]/.test(password)) s++;
+    if (/[^A-Za-z0-9]/.test(password)) s++;
+    return Math.min(s, 4);
+  };
+  const strength = getStrength();
+  const labels = ["", "ضعيفة", "متوسطة", "جيدة", "قوية"];
+  const colors = ["", "bg-destructive", "bg-orange-400", "bg-accent", "bg-green-500"];
+
+  if (!password) return null;
+
+  return (
+    <div className="flex items-center gap-2 mt-1.5">
+      <div className="flex gap-1 flex-1">
+        {[1, 2, 3, 4].map((i) => (
+          <div
+            key={i}
+            className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
+              i <= strength ? colors[strength] : "bg-muted"
+            }`}
+          />
+        ))}
+      </div>
+      <span className="text-xs text-muted-foreground">{labels[strength]}</span>
+    </div>
+  );
+};
+
 const SignupPage = () => {
   const { type } = useParams<{ type: string }>();
   const accountType = (type && type in accountConfig ? type : "client") as AccountType;
   const config = accountConfig[accountType];
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
 
   return (
     <AuthLayout
@@ -58,7 +93,8 @@ const SignupPage = () => {
     >
       <div className="space-y-5">
         <div className="text-center lg:text-right">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium mb-3">
+            <Check className="w-3 h-3" />
             حساب {config.label}
           </div>
           <h1 className="font-heading text-2xl font-bold text-foreground">إنشاء حساب جديد</h1>
@@ -76,12 +112,12 @@ const SignupPage = () => {
               <Label htmlFor="firstName">الاسم الأول</Label>
               <div className="relative">
                 <UserCircle className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input id="firstName" placeholder="الاسم الأول" className="pr-10" />
+                <Input id="firstName" placeholder="الاسم الأول" className="pr-10 h-11 rounded-xl" />
               </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="lastName">اسم العائلة</Label>
-              <Input id="lastName" placeholder="اسم العائلة" />
+              <Input id="lastName" placeholder="اسم العائلة" className="h-11 rounded-xl" />
             </div>
           </div>
 
@@ -90,7 +126,7 @@ const SignupPage = () => {
               <Label htmlFor={field.id}>{field.label}</Label>
               <div className="relative">
                 <field.icon className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input id={field.id} type={field.type} placeholder={field.placeholder} className="pr-10" />
+                <Input id={field.id} type={field.type} placeholder={field.placeholder} className="pr-10 h-11 rounded-xl" />
               </div>
             </div>
           ))}
@@ -99,7 +135,7 @@ const SignupPage = () => {
             <Label htmlFor="phone">رقم الهاتف</Label>
             <div className="relative">
               <Phone className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input id="phone" type="tel" placeholder="+966 5XX XXX XXXX" className="pr-10" dir="ltr" />
+              <Input id="phone" type="tel" placeholder="+966 5XX XXX XXXX" className="pr-10 h-11 rounded-xl" dir="ltr" />
             </div>
           </div>
 
@@ -107,7 +143,7 @@ const SignupPage = () => {
             <Label htmlFor="email">البريد الإلكتروني</Label>
             <div className="relative">
               <Mail className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input id="email" type="email" placeholder="example@email.com" className="pr-10" dir="ltr" />
+              <Input id="email" type="email" placeholder="example@email.com" className="pr-10 h-11 rounded-xl" dir="ltr" />
             </div>
           </div>
 
@@ -119,17 +155,20 @@ const SignupPage = () => {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
-                className="pr-10 pl-10"
+                className="pr-10 pl-10 h-11 rounded-xl"
                 dir="ltr"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
+            <PasswordStrength password={password} />
           </div>
 
           <div className="flex items-start gap-2">
@@ -142,7 +181,9 @@ const SignupPage = () => {
             </label>
           </div>
 
-          <Button className="w-full h-11 text-base">إنشاء الحساب</Button>
+          <Button className="w-full h-11 text-base rounded-xl shadow-md hover:shadow-lg transition-shadow">
+            إنشاء الحساب
+          </Button>
 
           <div className="relative my-4">
             <div className="absolute inset-0 flex items-center">
@@ -154,7 +195,7 @@ const SignupPage = () => {
           </div>
 
           <div className="flex gap-3">
-            <Button variant="outline" className="flex-1 h-11 gap-2">
+            <Button variant="outline" className="flex-1 h-11 gap-2 rounded-xl hover:shadow-sm transition-shadow">
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
@@ -163,7 +204,7 @@ const SignupPage = () => {
               </svg>
               Google
             </Button>
-            <Button variant="outline" className="flex-1 h-11 gap-2">
+            <Button variant="outline" className="flex-1 h-11 gap-2 rounded-xl hover:shadow-sm transition-shadow">
               <svg className="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
               </svg>
