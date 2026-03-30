@@ -46,8 +46,8 @@ const Navbar = () => {
             <Globe className="w-4 h-4" />
             العربية
           </Button>
-          <Button variant="outline" size="sm">تسجيل الدخول</Button>
-          <Button size="sm">إنشاء حساب</Button>
+          <Button variant="outline" size="sm" asChild><Link to="/login">تسجيل الدخول</Link></Button>
+          <Button size="sm" asChild><Link to="/signup/client">إنشاء حساب</Link></Button>
         </div>
 
         {/* Mobile Menu */}
