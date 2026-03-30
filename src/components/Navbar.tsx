@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   { label: "الرئيسية", href: "#" },
