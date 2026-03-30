@@ -71,8 +71,8 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="flex gap-2 pt-2">
-                <Button variant="outline" size="sm" className="flex-1">تسجيل الدخول</Button>
-                <Button size="sm" className="flex-1">إنشاء حساب</Button>
+                <Button variant="outline" size="sm" className="flex-1" asChild><Link to="/login">تسجيل الدخول</Link></Button>
+                <Button size="sm" className="flex-1" asChild><Link to="/signup/client">إنشاء حساب</Link></Button>
               </div>
             </div>
           </motion.div>
