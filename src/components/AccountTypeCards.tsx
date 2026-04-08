@@ -1,43 +1,8 @@
 import { motion } from "framer-motion";
-import { Building2, Wrench, User, ArrowLeft, Check } from "lucide-react";
+import { Building2, Wrench, User, ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
-const accountTypes = [
-  {
-    icon: Building2,
-    title: "شركة",
-    description: "للشركات التي تدير عمليات الصيانة",
-    features: ["إدارة الموظفين والفنيين", "التقارير والتحليلات", "إدارة العقود"],
-    color: "bg-primary/10 text-primary",
-    borderHover: "hover:border-primary/40",
-    glowClass: "group-hover:shadow-[0_0_30px_hsl(217_71%_45%/0.12)]",
-    buttonLabel: "التسجيل كشركة",
-    path: "/signup/company",
-  },
-  {
-    icon: Wrench,
-    title: "فني",
-    description: "للفنيين الذين يقدمون خدمات الصيانة",
-    features: ["استقبال طلبات العمل", "إدارة المواعيد", "تتبع الأرباح"],
-    color: "bg-accent/10 text-accent",
-    borderHover: "hover:border-accent/40",
-    glowClass: "group-hover:shadow-[0_0_30px_hsl(170_60%_45%/0.12)]",
-    buttonLabel: "التسجيل كفني",
-    path: "/signup/technician",
-  },
-  {
-    icon: User,
-    title: "عميل",
-    description: "للعملاء الذين يريدون طلب خدمات الصيانة",
-    features: ["طلب خدمات الصيانة", "تتبع حالة الطلبات", "تقييم الخدمات"],
-    color: "bg-ring/10 text-ring",
-    borderHover: "hover:border-ring/40",
-    glowClass: "group-hover:shadow-[0_0_30px_hsl(217_71%_45%/0.1)]",
-    buttonLabel: "التسجيل كعميل",
-    path: "/signup/client",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const container = {
   hidden: {},
@@ -50,6 +15,45 @@ const item = {
 };
 
 const AccountTypeCards = () => {
+  const { t, dir } = useLanguage();
+  const Arrow = dir === "rtl" ? ArrowLeft : ArrowRight;
+
+  const accountTypes = [
+    {
+      icon: Building2,
+      title: t("accounts.company"),
+      description: t("accounts.company.desc"),
+      features: [t("accounts.company.f1"), t("accounts.company.f2"), t("accounts.company.f3")],
+      color: "bg-primary/10 text-primary",
+      borderHover: "hover:border-primary/40",
+      glowClass: "group-hover:shadow-[0_0_30px_hsl(217_71%_45%/0.12)]",
+      buttonLabel: t("accounts.company.btn"),
+      path: "/signup/company",
+    },
+    {
+      icon: Wrench,
+      title: t("accounts.technician"),
+      description: t("accounts.technician.desc"),
+      features: [t("accounts.technician.f1"), t("accounts.technician.f2"), t("accounts.technician.f3")],
+      color: "bg-accent/10 text-accent",
+      borderHover: "hover:border-accent/40",
+      glowClass: "group-hover:shadow-[0_0_30px_hsl(170_60%_45%/0.12)]",
+      buttonLabel: t("accounts.technician.btn"),
+      path: "/signup/technician",
+    },
+    {
+      icon: User,
+      title: t("accounts.client"),
+      description: t("accounts.client.desc"),
+      features: [t("accounts.client.f1"), t("accounts.client.f2"), t("accounts.client.f3")],
+      color: "bg-ring/10 text-ring",
+      borderHover: "hover:border-ring/40",
+      glowClass: "group-hover:shadow-[0_0_30px_hsl(217_71%_45%/0.1)]",
+      buttonLabel: t("accounts.client.btn"),
+      path: "/signup/client",
+    },
+  ];
+
   return (
     <section id="services" className="py-16">
       <div className="container text-center mb-10">
@@ -58,8 +62,8 @@ const AccountTypeCards = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-2">اختر نوع حسابك</h2>
-          <p className="text-muted-foreground">حدد الدور المناسب لك للحصول على أفضل تجربة</p>
+          <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-2">{t("accounts.title")}</h2>
+          <p className="text-muted-foreground">{t("accounts.subtitle")}</p>
         </motion.div>
       </div>
 
@@ -72,7 +76,7 @@ const AccountTypeCards = () => {
       >
         {accountTypes.map((type) => (
           <motion.div
-            key={type.title}
+            key={type.path}
             variants={item}
             className={`group bg-card rounded-2xl shadow-card border border-border/50 ${type.borderHover} p-7 flex flex-col items-center text-center transition-all duration-400 hover:-translate-y-2 ${type.glowClass}`}
           >
@@ -94,7 +98,7 @@ const AccountTypeCards = () => {
 
             <Button className="w-full mt-auto gap-2 h-11" asChild>
               <Link to={type.path}>
-                <ArrowLeft className="w-4 h-4" />
+                <Arrow className="w-4 h-4" />
                 {type.buttonLabel}
               </Link>
             </Button>

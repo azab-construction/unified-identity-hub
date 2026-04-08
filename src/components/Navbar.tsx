@@ -1,20 +1,24 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-
-const navLinks = [
-  { label: "الرئيسية", href: "#" },
-  { label: "خدماتنا", href: "#services" },
-  { label: "المنصات", href: "#platforms" },
-  { label: "المزايا", href: "#features" },
-  { label: "تواصل معنا", href: "#contact" },
-];
+import { useTheme } from "@/contexts/ThemeContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const { t, toggleLang } = useLanguage();
+
+  const navLinks = [
+    { label: t("nav.home"), href: "#" },
+    { label: t("nav.services"), href: "#services" },
+    { label: t("nav.platforms"), href: "#platforms" },
+    { label: t("nav.features"), href: "#features" },
+    { label: t("nav.contact"), href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -33,9 +37,9 @@ const Navbar = () => {
           <div className="w-10 h-10 rounded-xl gradient-hero flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
             <span className="font-heading font-bold text-primary-foreground text-lg">Az</span>
           </div>
-          <div className="text-right">
+          <div>
             <h1 className="font-heading font-bold text-foreground text-lg leading-tight">Alazab</h1>
-            <p className="text-[10px] text-muted-foreground tracking-wide">نظام المصادقة المركزي</p>
+            <p className="text-[10px] text-muted-foreground tracking-wide">{t("nav.subtitle")}</p>
           </div>
         </Link>
 
@@ -53,22 +57,33 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
-          <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-foreground">
+          <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground" onClick={toggleTheme}>
+            {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+          </Button>
+          <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-foreground" onClick={toggleLang}>
             <Globe className="w-4 h-4" />
-            العربية
+            {t("nav.lang")}
           </Button>
           <Button variant="outline" size="sm" className="border-primary/20 hover:border-primary/40" asChild>
-            <Link to="/login">تسجيل الدخول</Link>
+            <Link to="/login">{t("nav.login")}</Link>
           </Button>
           <Button size="sm" className="shadow-md" asChild>
-            <Link to="/signup/client">إنشاء حساب</Link>
+            <Link to="/signup/client">{t("nav.signup")}</Link>
           </Button>
         </div>
 
         {/* Mobile Menu */}
-        <button className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors" onClick={() => setMobileOpen(!mobileOpen)}>
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        <div className="md:hidden flex items-center gap-1">
+          <Button variant="ghost" size="icon" className="text-muted-foreground" onClick={toggleTheme}>
+            {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+          </Button>
+          <Button variant="ghost" size="icon" className="text-muted-foreground" onClick={toggleLang}>
+            <Globe className="w-4 h-4" />
+          </Button>
+          <button className="p-2 rounded-lg hover:bg-muted transition-colors" onClick={() => setMobileOpen(!mobileOpen)}>
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -86,8 +101,8 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="flex gap-2 pt-3 mt-2 border-t border-border/50">
-                <Button variant="outline" size="sm" className="flex-1" asChild><Link to="/login">تسجيل الدخول</Link></Button>
-                <Button size="sm" className="flex-1" asChild><Link to="/signup/client">إنشاء حساب</Link></Button>
+                <Button variant="outline" size="sm" className="flex-1" asChild><Link to="/login">{t("nav.login")}</Link></Button>
+                <Button size="sm" className="flex-1" asChild><Link to="/signup/client">{t("nav.signup")}</Link></Button>
               </div>
             </div>
           </motion.div>
