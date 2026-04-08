@@ -7,43 +7,12 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import AuthLayout from "@/components/AuthLayout";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const accountConfig = {
-  company: {
-    icon: <Building2 className="w-12 h-12 text-white" />,
-    title: "تسجيل شركة جديدة",
-    subtitle: "أنشئ حساب شركتك وابدأ بإدارة عمليات الصيانة",
-    accent: "gradient-hero",
-    label: "شركة",
-    extraFields: [
-      { id: "companyName", label: "اسم الشركة", icon: Building2, placeholder: "أدخل اسم الشركة", type: "text" },
-      { id: "commercialReg", label: "السجل التجاري", icon: UserCircle, placeholder: "رقم السجل التجاري", type: "text" },
-    ],
-  },
-  technician: {
-    icon: <Wrench className="w-12 h-12 text-white" />,
-    title: "تسجيل فني جديد",
-    subtitle: "انضم كفني وابدأ باستقبال طلبات العمل",
-    accent: "bg-accent",
-    label: "فني",
-    extraFields: [
-      { id: "specialty", label: "التخصص", icon: Wrench, placeholder: "مثال: كهرباء، سباكة، تكييف", type: "text" },
-      { id: "experience", label: "سنوات الخبرة", icon: UserCircle, placeholder: "عدد سنوات الخبرة", type: "number" },
-    ],
-  },
-  client: {
-    icon: <User className="w-12 h-12 text-white" />,
-    title: "تسجيل عميل جديد",
-    subtitle: "أنشئ حسابك واطلب خدمات الصيانة بسهولة",
-    accent: "gradient-hero-vivid",
-    label: "عميل",
-    extraFields: [],
-  },
-};
-
-type AccountType = keyof typeof accountConfig;
+type AccountType = "company" | "technician" | "client";
 
 const PasswordStrength = ({ password }: { password: string }) => {
+  const { t } = useLanguage();
   const getStrength = () => {
     if (!password) return 0;
     let s = 0;
@@ -55,7 +24,7 @@ const PasswordStrength = ({ password }: { password: string }) => {
     return Math.min(s, 4);
   };
   const strength = getStrength();
-  const labels = ["", "ضعيفة", "متوسطة", "جيدة", "قوية"];
+  const labels = ["", t("strength.weak"), t("strength.medium"), t("strength.good"), t("strength.strong")];
   const colors = ["", "bg-destructive", "bg-orange-400", "bg-accent", "bg-green-500"];
 
   if (!password) return null;
@@ -78,11 +47,46 @@ const PasswordStrength = ({ password }: { password: string }) => {
 };
 
 const SignupPage = () => {
+  const { t } = useLanguage();
   const { type } = useParams<{ type: string }>();
-  const accountType = (type && type in accountConfig ? type : "client") as AccountType;
-  const config = accountConfig[accountType];
+  const accountType = (type && ["company", "technician", "client"].includes(type) ? type : "client") as AccountType;
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
+
+  const accountConfig: Record<AccountType, { icon: React.ReactNode; title: string; subtitle: string; accent: string; label: string; extraFields: { id: string; label: string; icon: typeof Building2; placeholder: string; type: string }[] }> = {
+    company: {
+      icon: <Building2 className="w-12 h-12 text-white" />,
+      title: t("auth.signup.company.title"),
+      subtitle: t("auth.signup.company.subtitle"),
+      accent: "gradient-hero",
+      label: t("accounts.company"),
+      extraFields: [
+        { id: "companyName", label: t("auth.companyName"), icon: Building2, placeholder: t("auth.companyName"), type: "text" },
+        { id: "commercialReg", label: t("auth.commercialReg"), icon: UserCircle, placeholder: t("auth.commercialReg"), type: "text" },
+      ],
+    },
+    technician: {
+      icon: <Wrench className="w-12 h-12 text-white" />,
+      title: t("auth.signup.technician.title"),
+      subtitle: t("auth.signup.technician.subtitle"),
+      accent: "bg-accent",
+      label: t("accounts.technician"),
+      extraFields: [
+        { id: "specialty", label: t("auth.specialty"), icon: Wrench, placeholder: t("auth.specialty"), type: "text" },
+        { id: "experience", label: t("auth.experience"), icon: UserCircle, placeholder: t("auth.experience"), type: "number" },
+      ],
+    },
+    client: {
+      icon: <User className="w-12 h-12 text-white" />,
+      title: t("auth.signup.client.title"),
+      subtitle: t("auth.signup.client.subtitle"),
+      accent: "gradient-hero-vivid",
+      label: t("accounts.client"),
+      extraFields: [],
+    },
+  };
+
+  const config = accountConfig[accountType];
 
   return (
     <AuthLayout
@@ -92,12 +96,12 @@ const SignupPage = () => {
       accentColor={config.accent}
     >
       <div className="space-y-5">
-        <div className="text-center lg:text-right">
+        <div className="text-center lg:text-start">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium mb-3">
             <Check className="w-3 h-3" />
-            حساب {config.label}
+            {config.label}
           </div>
-          <h1 className="font-heading text-2xl font-bold text-foreground">إنشاء حساب جديد</h1>
+          <h1 className="font-heading text-2xl font-bold text-foreground">{t("auth.signup")}</h1>
           <p className="text-muted-foreground text-sm mt-1">{config.subtitle}</p>
         </div>
 
@@ -109,15 +113,15 @@ const SignupPage = () => {
         >
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-2">
-              <Label htmlFor="firstName">الاسم الأول</Label>
+              <Label htmlFor="firstName">{t("auth.firstName")}</Label>
               <div className="relative">
-                <UserCircle className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input id="firstName" placeholder="الاسم الأول" className="pr-10 h-11 rounded-xl" />
+                <UserCircle className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input id="firstName" placeholder={t("auth.firstName")} className="ps-10 h-11 rounded-xl" />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="lastName">اسم العائلة</Label>
-              <Input id="lastName" placeholder="اسم العائلة" className="h-11 rounded-xl" />
+              <Label htmlFor="lastName">{t("auth.lastName")}</Label>
+              <Input id="lastName" placeholder={t("auth.lastName")} className="h-11 rounded-xl" />
             </div>
           </div>
 
@@ -125,37 +129,37 @@ const SignupPage = () => {
             <div key={field.id} className="space-y-2">
               <Label htmlFor={field.id}>{field.label}</Label>
               <div className="relative">
-                <field.icon className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input id={field.id} type={field.type} placeholder={field.placeholder} className="pr-10 h-11 rounded-xl" />
+                <field.icon className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input id={field.id} type={field.type} placeholder={field.placeholder} className="ps-10 h-11 rounded-xl" />
               </div>
             </div>
           ))}
 
           <div className="space-y-2">
-            <Label htmlFor="phone">رقم الهاتف</Label>
+            <Label htmlFor="phone">{t("auth.phone")}</Label>
             <div className="relative">
-              <Phone className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input id="phone" type="tel" placeholder="+966 5XX XXX XXXX" className="pr-10 h-11 rounded-xl" dir="ltr" />
+              <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input id="phone" type="tel" placeholder="+966 5XX XXX XXXX" className="ps-10 h-11 rounded-xl" dir="ltr" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email">البريد الإلكتروني</Label>
+            <Label htmlFor="email">{t("auth.email")}</Label>
             <div className="relative">
-              <Mail className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input id="email" type="email" placeholder="example@email.com" className="pr-10 h-11 rounded-xl" dir="ltr" />
+              <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input id="email" type="email" placeholder="example@email.com" className="ps-10 h-11 rounded-xl" dir="ltr" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">كلمة المرور</Label>
+            <Label htmlFor="password">{t("auth.password")}</Label>
             <div className="relative">
-              <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
-                className="pr-10 pl-10 h-11 rounded-xl"
+                className="ps-10 pe-10 h-11 rounded-xl"
                 dir="ltr"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -163,7 +167,7 @@ const SignupPage = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                className="absolute end-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -174,15 +178,15 @@ const SignupPage = () => {
           <div className="flex items-start gap-2">
             <Checkbox id="terms" className="mt-1" />
             <label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed">
-              أوافق على{" "}
-              <a href="#" className="text-primary hover:underline">الشروط والأحكام</a>
-              {" "}و{" "}
-              <a href="#" className="text-primary hover:underline">سياسة الخصوصية</a>
+              {t("auth.terms")}{" "}
+              <a href="#" className="text-primary hover:underline">{t("auth.terms_link")}</a>
+              {" "}{t("auth.and")}{" "}
+              <a href="#" className="text-primary hover:underline">{t("auth.privacy_link")}</a>
             </label>
           </div>
 
           <Button className="w-full h-11 text-base rounded-xl shadow-md hover:shadow-lg transition-shadow">
-            إنشاء الحساب
+            {t("auth.signup.btn")}
           </Button>
 
           <div className="relative my-4">
@@ -190,7 +194,7 @@ const SignupPage = () => {
               <span className="w-full border-t border-border" />
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="bg-background px-4 text-muted-foreground">أو التسجيل بواسطة</span>
+              <span className="bg-background px-4 text-muted-foreground">{t("auth.or_signup")}</span>
             </div>
           </div>
 
@@ -214,9 +218,9 @@ const SignupPage = () => {
         </motion.div>
 
         <p className="text-center text-sm text-muted-foreground pt-2">
-          لديك حساب بالفعل؟{" "}
+          {t("auth.has_account")}{" "}
           <Link to={`/login?type=${accountType}`} className="text-primary font-medium hover:underline">
-            تسجيل الدخول
+            {t("auth.login")}
           </Link>
         </p>
       </div>

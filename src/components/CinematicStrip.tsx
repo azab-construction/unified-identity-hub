@@ -4,6 +4,7 @@ import logoUberfix from "@/assets/logo-uberfix.png";
 import logoLuxury from "@/assets/logo-luxury.png";
 import logoBrand from "@/assets/logo-brand.png";
 import logoLaban from "@/assets/logo-laban.png";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const brands = [
   { name: "Alazab", logo: logoAlazab, url: "https://alazab.com" },
@@ -14,11 +15,11 @@ const brands = [
 ];
 
 const CinematicStrip = () => {
+  const { t } = useLanguage();
   const doubled = [...brands, ...brands];
 
   return (
     <section id="platforms" className="py-20 overflow-hidden relative">
-      {/* Background */}
       <div className="absolute inset-0 bg-dot-pattern opacity-50 pointer-events-none" />
 
       <div className="container text-center mb-12 relative">
@@ -28,19 +29,18 @@ const CinematicStrip = () => {
           viewport={{ once: true }}
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-xs font-medium mb-4">
-            حساب واحد • وصول متعدد
+            {t("platforms.badge")}
           </div>
           <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-2">
-            منصاتنا المتكاملة
+            {t("platforms.title")}
           </h2>
           <p className="text-muted-foreground max-w-md mx-auto">
-            سجّل مرة واحدة واستمتع بالوصول الفوري لجميع خدماتنا
+            {t("platforms.subtitle")}
           </p>
         </motion.div>
       </div>
 
       <div className="relative">
-        {/* Gradient masks */}
         <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
 

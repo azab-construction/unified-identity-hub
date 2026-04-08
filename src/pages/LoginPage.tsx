@@ -6,43 +6,45 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AuthLayout from "@/components/AuthLayout";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const accountTypes = {
-  company: {
-    icon: <Building2 className="w-12 h-12 text-white" />,
-    title: "بوابة الشركات",
-    subtitle: "إدارة شاملة لعمليات الصيانة والموظفين والتقارير",
-    accent: "gradient-hero",
-    label: "شركة",
-    signupPath: "/signup/company",
-  },
-  technician: {
-    icon: <Wrench className="w-12 h-12 text-white" />,
-    title: "بوابة الفنيين",
-    subtitle: "استقبال الطلبات وإدارة المواعيد وتتبع الأرباح",
-    accent: "bg-accent",
-    label: "فني",
-    signupPath: "/signup/technician",
-  },
-  client: {
-    icon: <User className="w-12 h-12 text-white" />,
-    title: "بوابة العملاء",
-    subtitle: "اطلب خدمات الصيانة وتتبع طلباتك بسهولة",
-    accent: "gradient-hero-vivid",
-    label: "عميل",
-    signupPath: "/signup/client",
-  },
-};
-
-type AccountType = keyof typeof accountTypes;
+type AccountType = "company" | "technician" | "client";
 
 const LoginPage = () => {
+  const { t } = useLanguage();
   const [searchParams] = useSearchParams();
   const typeParam = searchParams.get("type") as AccountType | null;
   const [selectedType, setSelectedType] = useState<AccountType>(
-    typeParam && accountTypes[typeParam] ? typeParam : "client"
+    typeParam && ["company", "technician", "client"].includes(typeParam) ? typeParam : "client"
   );
   const [showPassword, setShowPassword] = useState(false);
+
+  const accountTypes: Record<AccountType, { icon: React.ReactNode; title: string; subtitle: string; accent: string; label: string; signupPath: string }> = {
+    company: {
+      icon: <Building2 className="w-12 h-12 text-white" />,
+      title: t("auth.company.title"),
+      subtitle: t("auth.company.subtitle"),
+      accent: "gradient-hero",
+      label: t("accounts.company"),
+      signupPath: "/signup/company",
+    },
+    technician: {
+      icon: <Wrench className="w-12 h-12 text-white" />,
+      title: t("auth.technician.title"),
+      subtitle: t("auth.technician.subtitle"),
+      accent: "bg-accent",
+      label: t("accounts.technician"),
+      signupPath: "/signup/technician",
+    },
+    client: {
+      icon: <User className="w-12 h-12 text-white" />,
+      title: t("auth.client.title"),
+      subtitle: t("auth.client.subtitle"),
+      accent: "gradient-hero-vivid",
+      label: t("accounts.client"),
+      signupPath: "/signup/client",
+    },
+  };
 
   const current = accountTypes[selectedType];
 
@@ -54,9 +56,9 @@ const LoginPage = () => {
       accentColor={current.accent}
     >
       <div className="space-y-6">
-        <div className="text-center lg:text-right">
-          <h1 className="font-heading text-2xl font-bold text-foreground">تسجيل الدخول</h1>
-          <p className="text-muted-foreground text-sm mt-1">اختر نوع حسابك وسجّل دخولك</p>
+        <div className="text-center lg:text-start">
+          <h1 className="font-heading text-2xl font-bold text-foreground">{t("auth.login")}</h1>
+          <p className="text-muted-foreground text-sm mt-1">{t("auth.login.subtitle")}</p>
         </div>
 
         {/* Account Type Selector */}
@@ -86,33 +88,33 @@ const LoginPage = () => {
             className="space-y-4"
           >
             <div className="space-y-2">
-              <Label htmlFor="email">البريد الإلكتروني</Label>
+              <Label htmlFor="email">{t("auth.email")}</Label>
               <div className="relative">
-                <Mail className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input id="email" type="email" placeholder="example@email.com" className="pr-10 h-11 rounded-xl" dir="ltr" />
+                <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input id="email" type="email" placeholder="example@email.com" className="ps-10 h-11 rounded-xl" dir="ltr" />
               </div>
             </div>
 
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <Label htmlFor="password">كلمة المرور</Label>
+                <Label htmlFor="password">{t("auth.password")}</Label>
                 <Link to="/forgot-password" className="text-xs text-primary hover:underline">
-                  نسيت كلمة المرور؟
+                  {t("auth.forgot")}
                 </Link>
               </div>
               <div className="relative">
-                <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
-                  className="pr-10 pl-10 h-11 rounded-xl"
+                  className="ps-10 pe-10 h-11 rounded-xl"
                   dir="ltr"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute end-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -120,7 +122,7 @@ const LoginPage = () => {
             </div>
 
             <Button className="w-full h-11 text-base rounded-xl shadow-md hover:shadow-lg transition-shadow">
-              تسجيل الدخول
+              {t("auth.login")}
             </Button>
 
             <div className="relative my-6">
@@ -128,7 +130,7 @@ const LoginPage = () => {
                 <span className="w-full border-t border-border" />
               </div>
               <div className="relative flex justify-center text-xs">
-                <span className="bg-background px-4 text-muted-foreground">أو</span>
+                <span className="bg-background px-4 text-muted-foreground">{t("auth.or")}</span>
               </div>
             </div>
 
@@ -153,9 +155,9 @@ const LoginPage = () => {
         </AnimatePresence>
 
         <p className="text-center text-sm text-muted-foreground pt-4">
-          ليس لديك حساب؟{" "}
+          {t("auth.no_account")}{" "}
           <Link to={current.signupPath} className="text-primary font-medium hover:underline">
-            إنشاء حساب جديد
+            {t("auth.create_account")}
           </Link>
         </p>
       </div>
