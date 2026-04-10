@@ -42,7 +42,7 @@ const FeaturesSection = () => {
               transition={{ delay: i * 0.08 }}
               className="group bg-card rounded-2xl shadow-card border border-border/50 p-6 hover:shadow-card-hover hover:-translate-y-1 hover:border-primary/20 transition-all duration-300"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                 <f.icon className="w-6 h-6" />
               </div>
               <h3 className="font-heading font-bold text-foreground mb-2">{f.title}</h3>
