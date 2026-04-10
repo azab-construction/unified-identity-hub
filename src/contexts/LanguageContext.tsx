@@ -137,6 +137,26 @@ const translations: Record<Lang, Record<string, string>> = {
     "strength.medium": "متوسطة",
     "strength.good": "جيدة",
     "strength.strong": "قوية",
+
+    // AzaBot
+    "azabot.title": "عزبوت (AzaBot)",
+    "azabot.subtitle": "المساعد الذكي - متصل الآن",
+    "azabot.textTab": "محادثة نصية",
+    "azabot.voiceTab": "محادثة صوتية",
+    "azabot.welcome": "مرحباً! أنا عزبوت",
+    "azabot.welcomeSub": "كيف يمكنني مساعدتك؟",
+    "azabot.q1": "ما هي خدمات الشركة؟",
+    "azabot.q2": "أريد عرض سعر تشطيب",
+    "azabot.q3": "ما هي أسعار التشطيب؟",
+    "azabot.q4": "ما هي فروع الشركة؟",
+    "azabot.placeholder": "اكتب رسالتك...",
+    "azabot.powered": "مدعوم بالذكاء الاصطناعي - قد يخطئ أحياناً",
+    "azabot.error": "عذراً، حدث خطأ. حاول مرة أخرى.",
+    "azabot.listen": "استمع",
+    "azabot.listening": "جارٍ الاستماع...",
+    "azabot.speaking": "جارٍ التحدث...",
+    "azabot.tapToSpeak": "اضغط للتحدث",
+    "azabot.noSpeech": "متصفحك لا يدعم التعرف على الصوت",
   },
   en: {
     // Navbar
@@ -265,6 +285,26 @@ const translations: Record<Lang, Record<string, string>> = {
     "strength.medium": "Medium",
     "strength.good": "Good",
     "strength.strong": "Strong",
+
+    // AzaBot
+    "azabot.title": "AzaBot",
+    "azabot.subtitle": "Smart Assistant - Online",
+    "azabot.textTab": "Text Chat",
+    "azabot.voiceTab": "Voice Chat",
+    "azabot.welcome": "Hello! I'm AzaBot",
+    "azabot.welcomeSub": "How can I help you?",
+    "azabot.q1": "What are the company services?",
+    "azabot.q2": "I want a finishing quote",
+    "azabot.q3": "What are the finishing prices?",
+    "azabot.q4": "What are the company branches?",
+    "azabot.placeholder": "Type your message...",
+    "azabot.powered": "Powered by AI - May make mistakes",
+    "azabot.error": "Sorry, an error occurred. Please try again.",
+    "azabot.listen": "Listen",
+    "azabot.listening": "Listening...",
+    "azabot.speaking": "Speaking...",
+    "azabot.tapToSpeak": "Tap to speak",
+    "azabot.noSpeech": "Your browser doesn't support speech recognition",
   },
 };
 
