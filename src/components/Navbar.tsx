@@ -34,11 +34,11 @@ const Navbar = () => {
     }`}>
       <div className="container flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-            <span className="font-heading font-bold text-primary-foreground text-lg">ع</span>
+          <div className="w-10 h-10 rounded-xl gradient-hero flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+            <span className="font-heading font-bold text-primary-foreground text-lg">Az</span>
           </div>
           <div>
-            <h1 className="font-heading font-bold text-foreground text-lg leading-tight">العزب</h1>
+            <h1 className="font-heading font-bold text-foreground text-lg leading-tight">Alazab</h1>
             <p className="text-[10px] text-muted-foreground tracking-wide">{t("nav.subtitle")}</p>
           </div>
         </Link>
@@ -64,10 +64,10 @@ const Navbar = () => {
             <Globe className="w-4 h-4" />
             {t("nav.lang")}
           </Button>
-          <Button variant="outline" size="sm" className="border-primary/30 hover:border-primary/50 hover:bg-primary/5" asChild>
+          <Button variant="outline" size="sm" className="border-primary/20 hover:border-primary/40" asChild>
             <Link to="/login">{t("nav.login")}</Link>
           </Button>
-          <Button size="sm" className="shadow-md bg-primary text-primary-foreground hover:bg-primary/90" asChild>
+          <Button size="sm" className="shadow-md" asChild>
             <Link to="/signup/client">{t("nav.signup")}</Link>
           </Button>
         </div>
@@ -102,7 +102,7 @@ const Navbar = () => {
               ))}
               <div className="flex gap-2 pt-3 mt-2 border-t border-border/50">
                 <Button variant="outline" size="sm" className="flex-1" asChild><Link to="/login">{t("nav.login")}</Link></Button>
-                <Button size="sm" className="flex-1 bg-primary text-primary-foreground" asChild><Link to="/signup/client">{t("nav.signup")}</Link></Button>
+                <Button size="sm" className="flex-1" asChild><Link to="/signup/client">{t("nav.signup")}</Link></Button>
               </div>
             </div>
           </motion.div>
