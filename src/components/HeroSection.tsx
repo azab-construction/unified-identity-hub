@@ -79,13 +79,13 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row gap-3 mt-2"
           >
             <Button size="lg" className="h-12 px-8 text-base gap-2 shadow-lg bg-primary text-primary-foreground hover:bg-primary/90" asChild>
-              <Link to="/signup/client">
+              <Link to="/auth/login">
                 {t("hero.cta")}
                 <Arrow className="w-4 h-4" />
               </Link>
             </Button>
             <Button variant="outline" size="lg" className="h-12 px-8 text-base border-white/20 text-white hover:bg-white/10 hover:border-white/30" asChild>
-              <Link to="/login">{t("nav.login")}</Link>
+              <Link to="/auth/login">{t("nav.login")}</Link>
             </Button>
           </motion.div>
 
