@@ -27,7 +27,7 @@ const AccountTypeCards = () => {
       color: "bg-primary/10 text-primary",
       borderHover: "hover:border-primary/40",
       buttonLabel: t("accounts.company.btn"),
-      path: "/signup/company",
+      path: "/auth/login",
     },
     {
       icon: Wrench,
@@ -37,7 +37,7 @@ const AccountTypeCards = () => {
       color: "bg-accent/10 text-accent dark:bg-primary/10 dark:text-primary",
       borderHover: "hover:border-primary/40",
       buttonLabel: t("accounts.technician.btn"),
-      path: "/signup/technician",
+      path: "/auth/login",
     },
     {
       icon: User,
@@ -47,7 +47,7 @@ const AccountTypeCards = () => {
       color: "bg-primary/10 text-primary",
       borderHover: "hover:border-primary/40",
       buttonLabel: t("accounts.client.btn"),
-      path: "/signup/client",
+      path: "/auth/login",
     },
   ];
 
