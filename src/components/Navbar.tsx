@@ -65,10 +65,10 @@ const Navbar = () => {
             {t("nav.lang")}
           </Button>
           <Button variant="outline" size="sm" className="border-primary/30 hover:border-primary/50 hover:bg-primary/5" asChild>
-            <Link to="/login">{t("nav.login")}</Link>
+            <Link to="/auth/login">{t("nav.login")}</Link>
           </Button>
           <Button size="sm" className="shadow-md bg-primary text-primary-foreground hover:bg-primary/90" asChild>
-            <Link to="/signup/client">{t("nav.signup")}</Link>
+            <Link to="/auth/login">{t("nav.signup")}</Link>
           </Button>
         </div>
 
@@ -101,8 +101,8 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="flex gap-2 pt-3 mt-2 border-t border-border/50">
-                <Button variant="outline" size="sm" className="flex-1" asChild><Link to="/login">{t("nav.login")}</Link></Button>
-                <Button size="sm" className="flex-1 bg-primary text-primary-foreground" asChild><Link to="/signup/client">{t("nav.signup")}</Link></Button>
+                <Button variant="outline" size="sm" className="flex-1" asChild><Link to="/auth/login">{t("nav.login")}</Link></Button>
+                <Button size="sm" className="flex-1 bg-primary text-primary-foreground" asChild><Link to="/auth/login">{t("nav.signup")}</Link></Button>
               </div>
             </div>
           </motion.div>
