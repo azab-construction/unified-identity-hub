@@ -9,6 +9,10 @@ import AzaBotWidget from "@/components/AzaBot/AzaBotWidget";
 import Index from "./pages/Index.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import SignupPage from "./pages/SignupPage.tsx";
+import AuthLoginPage from "./pages/auth/AuthLoginPage.tsx";
+import CheckEmailPage from "./pages/auth/CheckEmailPage.tsx";
+import VerifyPage from "./pages/auth/VerifyPage.tsx";
+import SuccessPage from "./pages/auth/SuccessPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -25,6 +29,10 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup/:type" element={<SignupPage />} />
+              <Route path="/auth/login" element={<AuthLoginPage />} />
+              <Route path="/auth/check-email" element={<CheckEmailPage />} />
+              <Route path="/auth/verify" element={<VerifyPage />} />
+              <Route path="/auth/success" element={<SuccessPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
