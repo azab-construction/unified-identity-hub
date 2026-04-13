@@ -16,7 +16,6 @@ const CinematicStrip = () => {
 
   return (
     <section id="platforms" className="py-20 overflow-hidden relative">
-      <div className="absolute inset-0 bg-dot-pattern opacity-50 pointer-events-none" />
 
       <div className="container text-center mb-12 relative">
         <motion.div
@@ -49,12 +48,12 @@ const CinematicStrip = () => {
               rel="noopener noreferrer"
               className="flex-shrink-0 mx-5 group"
             >
-              <div className="w-56 bg-card rounded-2xl shadow-card border border-border/50 p-7 flex flex-col items-center gap-4 transition-all duration-300 group-hover:shadow-card-hover group-hover:-translate-y-2 group-hover:border-primary/30">
-                <div className="w-16 h-16 rounded-xl bg-muted/50 flex items-center justify-center overflow-hidden">
+              <div className="w-72 bg-card rounded-2xl shadow-card border border-border/50 p-8 flex flex-col items-center gap-5 transition-all duration-300 group-hover:shadow-card-hover group-hover:-translate-y-2 group-hover:border-primary/30">
+                <div className="w-24 h-24 rounded-xl bg-muted/50 flex items-center justify-center overflow-hidden">
                   <img
                     src={brand.logo}
                     alt={brand.name}
-                    className="h-12 w-12 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                    className="h-20 w-20 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
                 <span className="text-sm font-semibold text-muted-foreground group-hover:text-primary transition-colors">
