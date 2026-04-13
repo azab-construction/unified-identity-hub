@@ -14,7 +14,7 @@ const SuccessPage = () => {
       setCountdown((c) => {
         if (c <= 1) {
           clearInterval(timer);
-          navigate("/");
+          navigate("/dashboard");
           return 0;
         }
         return c - 1;
@@ -24,8 +24,8 @@ const SuccessPage = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center relative">
-      <div className="absolute inset-0 bg-dot-pattern opacity-30 pointer-events-none" />
+    <div className="min-h-screen gradient-hero flex items-center justify-center relative">
+      <div className="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none" />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -33,7 +33,6 @@ const SuccessPage = () => {
         transition={{ duration: 0.6, type: "spring" }}
         className="text-center space-y-6 relative z-10"
       >
-        {/* Checkmark Circle */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -47,7 +46,7 @@ const SuccessPage = () => {
               animate={{ pathLength: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
-              <Check className="w-14 h-14 text-primary-foreground" strokeWidth={3} />
+              <Check className="w-14 h-14 text-accent" strokeWidth={3} />
             </motion.div>
           </div>
         </motion.div>
@@ -57,10 +56,10 @@ const SuccessPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
         >
-          <h1 className="font-heading text-3xl font-bold text-foreground">
+          <h1 className="font-heading text-3xl font-bold text-white">
             {t("otp.success.title")}
           </h1>
-          <p className="text-muted-foreground text-lg mt-2">
+          <p className="text-white/60 text-lg mt-2">
             {t("otp.success.subtitle")}
           </p>
         </motion.div>
@@ -69,7 +68,7 @@ const SuccessPage = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="text-muted-foreground text-sm"
+          className="text-white/40 text-sm"
         >
           {t("otp.success.redirect")} ({countdown})
         </motion.p>
