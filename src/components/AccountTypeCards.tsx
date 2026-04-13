@@ -93,7 +93,7 @@ const AccountTypeCards = () => {
               ))}
             </ul>
 
-            <Button className="w-full mt-auto gap-2 h-11 bg-primary text-primary-foreground hover:bg-primary/90" asChild>
+            <Button className="w-full mt-auto gap-2 h-11 bg-accent text-accent-foreground hover:bg-accent/90 font-bold" asChild>
               <Link to={type.path}>
                 <Arrow className="w-4 h-4" />
                 {type.buttonLabel}
