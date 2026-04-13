@@ -159,6 +159,19 @@ const translations: Record<Lang, Record<string, string>> = {
     "otp.success.subtitle": "شكرًا لك",
     "otp.success.redirect": "جارٍ التحويل...",
 
+    // Google Auth
+    "auth.google_login": "تسجيل الدخول بـ Google",
+    "auth.or_email": "أو بالبريد الإلكتروني",
+
+    // Dashboard
+    "dashboard.welcome": "مرحبًا بك في لوحة التحكم",
+    "dashboard.subtitle": "أنت مسجّل الدخول بنجاح إلى نظام العزب",
+    "dashboard.logout": "تسجيل الخروج",
+    "dashboard.email": "البريد الإلكتروني",
+    "dashboard.auth_method": "طريقة المصادقة",
+    "dashboard.platforms": "المنصات المتاحة",
+    "dashboard.platforms_count": "منصات",
+
     // AzaBot
     "azabot.title": "عزبوت (AzaBot)",
     "azabot.subtitle": "المساعد الذكي - متصل الآن",
@@ -327,6 +340,19 @@ const translations: Record<Lang, Record<string, string>> = {
     "otp.success.title": "Verified Successfully",
     "otp.success.subtitle": "Thank you",
     "otp.success.redirect": "Redirecting...",
+
+    // Google Auth
+    "auth.google_login": "Sign in with Google",
+    "auth.or_email": "or with email",
+
+    // Dashboard
+    "dashboard.welcome": "Welcome to Dashboard",
+    "dashboard.subtitle": "You are successfully logged in to the Alazab system",
+    "dashboard.logout": "Logout",
+    "dashboard.email": "Email",
+    "dashboard.auth_method": "Auth Method",
+    "dashboard.platforms": "Available Platforms",
+    "dashboard.platforms_count": "platforms",
 
     // AzaBot
     "azabot.title": "AzaBot",
