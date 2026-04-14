@@ -71,7 +71,7 @@ const CinematicStrip = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
