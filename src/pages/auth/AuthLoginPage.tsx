@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Mail, ArrowLeft, ArrowRight, Shield, Loader2 } from "lucide-react";
+import { Mail, ArrowLeft, ArrowRight, Shield, Loader2, Lock, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +9,14 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { toast } from "sonner";
+
+const particles = Array.from({ length: 12 }, (_, i) => ({
+  x: `${Math.random() * 100}%`,
+  y: `${Math.random() * 100}%`,
+  size: Math.random() * 3 + 1,
+  delay: Math.random() * 4,
+  duration: Math.random() * 4 + 6,
+}));
 
 const AuthLoginPage = () => {
   const { t, dir } = useLanguage();
@@ -58,56 +66,85 @@ const AuthLoginPage = () => {
   return (
     <div className="min-h-screen bg-background flex">
       {/* Side Panel */}
-      <div className="hidden lg:flex lg:w-[45%] relative overflow-hidden items-center justify-center gradient-hero">
+      <div className="hidden lg:flex lg:w-[48%] relative overflow-hidden items-center justify-center gradient-hero">
         <div className="absolute inset-0">
-          <div className="absolute top-20 right-20 w-72 h-72 rounded-full bg-primary/15 blur-3xl animate-float" />
-          <div className="absolute bottom-20 left-20 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
+          <div className="absolute top-20 right-20 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[120px] animate-glow-pulse" />
+          <div className="absolute bottom-20 left-20 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[150px]" />
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
             backgroundSize: '50px 50px'
           }} />
         </div>
+
+        {/* Particles */}
+        {particles.map((p, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-primary/20 pointer-events-none"
+            style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
+            animate={{ y: [0, -25, -10, -30, 0], opacity: [0.2, 0.5, 0.3, 0.4, 0.2] }}
+            transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" }}
+          />
+        ))}
+
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="relative z-10 text-center text-white px-12"
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="relative z-10 text-center text-white px-12 max-w-lg"
         >
-          <div className="w-24 h-24 rounded-2xl bg-primary/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-8 border border-primary/30 shadow-xl">
-            <Shield className="w-12 h-12 text-primary" />
-          </div>
-          <h2 className="font-heading text-3xl font-bold mb-4">{t("otp.login.title")}</h2>
-          <p className="text-white/60 text-lg leading-relaxed mb-8">{t("otp.login.subtitle")}</p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20 text-primary text-sm">
-            <Shield className="w-4 h-4" />
-            {t("auth.encrypted")}
+          <motion.div
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="w-28 h-28 rounded-3xl bg-primary/15 backdrop-blur-md flex items-center justify-center mx-auto mb-10 border border-primary/25 shadow-2xl"
+          >
+            <Shield className="w-14 h-14 text-primary" />
+          </motion.div>
+          <h2 className="font-heading text-4xl font-extrabold mb-5 leading-tight">{t("otp.login.title")}</h2>
+          <p className="text-white/45 text-lg leading-relaxed mb-10">{t("otp.login.subtitle")}</p>
+
+          {/* Trust badges */}
+          <div className="flex items-center justify-center gap-6">
+            <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/[0.05] backdrop-blur-sm border border-white/[0.08] text-white/60 text-xs">
+              <Shield className="w-3.5 h-3.5 text-primary" />
+              {t("auth.encrypted")}
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/[0.05] backdrop-blur-sm border border-white/[0.08] text-white/60 text-xs">
+              <Lock className="w-3.5 h-3.5 text-primary" />
+              SSL 256-bit
+            </div>
           </div>
         </motion.div>
       </div>
 
       {/* Form Panel */}
       <div className="flex-1 flex flex-col relative">
-        <div className="absolute inset-0 bg-dot-pattern opacity-30 pointer-events-none" />
+        <div className="absolute inset-0 bg-dot-pattern opacity-20 pointer-events-none" />
         <div className="p-6 relative z-10">
-          <a href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-muted">
-            <Arrow className="w-4 h-4" />
+          <a href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-all duration-300 px-4 py-2.5 rounded-xl hover:bg-muted group">
+            <Arrow className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             {t("auth.back")}
           </a>
         </div>
         <div className="flex-1 flex items-center justify-center px-6 pb-12 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="w-full max-w-md space-y-8"
           >
             {/* Logo */}
             <div className="text-center">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-4">
-                <span className="font-heading text-3xl font-bold text-primary">ع</span>
-              </div>
-              <h1 className="font-heading text-2xl font-bold text-foreground">{t("otp.login.title")}</h1>
-              <p className="text-muted-foreground text-sm mt-1">{t("otp.login.subtitle")}</p>
+              <motion.div
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+                className="w-18 h-18 rounded-2xl bg-primary/10 border border-primary/15 flex items-center justify-center mx-auto mb-5 shadow-sm"
+              >
+                <span className="font-heading text-4xl font-extrabold text-primary">ع</span>
+              </motion.div>
+              <h1 className="font-heading text-2xl font-extrabold text-foreground">{t("otp.login.title")}</h1>
+              <p className="text-muted-foreground text-sm mt-2">{t("otp.login.subtitle")}</p>
             </div>
 
             {/* Google Login */}
@@ -116,7 +153,7 @@ const AuthLoginPage = () => {
               variant="outline"
               onClick={handleGoogleLogin}
               disabled={googleLoading}
-              className="w-full h-12 rounded-xl text-base gap-3 border-2 hover:border-primary/40 hover:bg-muted transition-all"
+              className="w-full h-13 rounded-xl text-base gap-3 border-2 hover:border-primary/30 hover:bg-muted/50 transition-all duration-300 font-medium"
             >
               {googleLoading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -132,16 +169,16 @@ const AuthLoginPage = () => {
             </Button>
 
             <div className="flex items-center gap-4">
-              <div className="flex-1 h-px bg-border" />
-              <span className="text-xs text-muted-foreground">{t("auth.or_email")}</span>
-              <div className="flex-1 h-px bg-border" />
+              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+              <span className="text-xs text-muted-foreground font-medium">{t("auth.or_email")}</span>
+              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
             </div>
 
             <form onSubmit={handleSendOtp} className="space-y-5">
-              <div className="space-y-2">
-                <Label htmlFor="email">{t("auth.email")}</Label>
-                <div className="relative">
-                  <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <div className="space-y-2.5">
+                <Label htmlFor="email" className="text-sm font-semibold">{t("auth.email")}</Label>
+                <div className="relative group">
+                  <Mail className="absolute start-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <Input
                     id="email"
                     type="email"
@@ -149,7 +186,7 @@ const AuthLoginPage = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="example@email.com"
-                    className="ps-10 h-12 rounded-xl text-base border-2 focus:border-primary transition-colors"
+                    className="ps-11 h-13 rounded-xl text-base border-2 focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all duration-300"
                     dir="ltr"
                   />
                 </div>
@@ -158,12 +195,12 @@ const AuthLoginPage = () => {
               <Button
                 type="submit"
                 disabled={loading || !email}
-                className="w-full h-12 text-base rounded-xl shadow-md hover:shadow-lg transition-all font-semibold"
+                className="w-full h-13 text-base rounded-xl shadow-md hover:shadow-lg transition-all duration-300 font-bold bg-primary text-primary-foreground hover:bg-primary/90 glow-primary"
               >
                 {loading ? (
                   <><Loader2 className="w-4 h-4 animate-spin" /> {t("otp.login.sending")}</>
                 ) : (
-                  t("otp.login.btn")
+                  <>{t("otp.login.btn")} <Sparkles className="w-4 h-4" /></>
                 )}
               </Button>
             </form>
