@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -6,7 +7,14 @@ const Footer = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer id="contact" className="relative bg-accent text-accent-foreground pt-16 pb-8 overflow-hidden">
+    <motion.footer
+      id="contact"
+      className="relative bg-accent text-accent-foreground pt-16 pb-8 overflow-hidden"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-40 right-1/4 w-80 h-80 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute -bottom-20 left-1/3 w-60 h-60 rounded-full bg-primary/5 blur-3xl" />
@@ -84,7 +92,7 @@ const Footer = () => {
           </button>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

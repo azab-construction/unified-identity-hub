@@ -15,7 +15,14 @@ const CinematicStrip = () => {
   const doubled = [...brands, ...brands];
 
   return (
-    <section id="platforms" className="py-20 overflow-hidden relative">
+    <motion.section
+      id="platforms"
+      className="py-20 overflow-hidden relative"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6 }}
+    >
 
       <div className="container text-center mb-12 relative">
         <motion.div
@@ -64,7 +71,7 @@ const CinematicStrip = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -15,7 +15,14 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section id="features" className="py-20 relative overflow-hidden">
+    <motion.section
+      id="features"
+      className="py-20 relative overflow-hidden"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none" />
 
       <div className="container relative">
@@ -51,7 +58,7 @@ const FeaturesSection = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
