@@ -15,36 +15,32 @@ const CinematicStrip = () => {
   const doubled = [...brands, ...brands];
 
   return (
-    <motion.section
-      id="platforms"
-      className="py-20 overflow-hidden relative"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6 }}
-    >
+    <section id="platforms" className="py-20 overflow-hidden relative">
+      {/* Subtle gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background pointer-events-none" />
 
-      <div className="container text-center mb-12 relative">
+      <div className="container text-center mb-14 relative">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-xs font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/8 text-accent dark:text-primary text-xs font-semibold mb-5 border border-accent/10">
             {t("platforms.badge")}
           </div>
-          <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-2">
+          <h2 className="font-heading font-extrabold text-3xl md:text-4xl text-foreground mb-3">
             {t("platforms.title")}
           </h2>
-          <p className="text-muted-foreground max-w-md mx-auto">
+          <p className="text-muted-foreground text-lg max-w-md mx-auto">
             {t("platforms.subtitle")}
           </p>
         </motion.div>
       </div>
 
       <div className="relative">
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
 
         <div className="flex animate-scroll-strip w-max hover:[animation-play-state:paused]">
           {doubled.map((brand, i) => (
@@ -53,17 +49,17 @@ const CinematicStrip = () => {
               href={brand.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 mx-5 group"
+              className="flex-shrink-0 mx-6 group"
             >
-              <div className="w-72 bg-card rounded-2xl shadow-card border border-border/50 p-8 flex flex-col items-center gap-5 transition-all duration-300 group-hover:shadow-card-hover group-hover:-translate-y-2 group-hover:border-primary/30">
-                <div className="w-24 h-24 rounded-xl bg-muted/50 flex items-center justify-center overflow-hidden">
+              <div className="w-52 bg-card/80 backdrop-blur-sm rounded-2xl border border-border/40 p-6 flex flex-col items-center gap-4 transition-all duration-500 group-hover:shadow-card-hover group-hover:-translate-y-2 group-hover:border-primary/30 group-hover:bg-card">
+                <div className="w-20 h-20 rounded-xl flex items-center justify-center overflow-hidden">
                   <img
                     src={brand.logo}
                     alt={brand.name}
-                    className="h-20 w-20 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                    className="h-16 w-16 object-contain opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
                   />
                 </div>
-                <span className="text-sm font-semibold text-muted-foreground group-hover:text-primary transition-colors">
+                <span className="text-xs font-bold text-muted-foreground group-hover:text-primary transition-colors duration-300">
                   {brand.name}
                 </span>
               </div>
@@ -71,7 +67,7 @@ const CinematicStrip = () => {
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
