@@ -38,7 +38,6 @@ const AccountTypeCards = () => {
       path: "/auth/login",
       gradient: "from-accent/20 to-accent/5",
       iconBg: "bg-accent/15 dark:bg-primary/15",
-      featured: true,
     },
     {
       icon: User,
