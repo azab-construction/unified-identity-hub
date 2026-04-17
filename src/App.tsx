@@ -35,6 +35,7 @@ const App = () => (
               <Route path="/auth/check-email" element={<CheckEmailPage />} />
               <Route path="/auth/verify" element={<VerifyPage />} />
               <Route path="/auth/success" element={<SuccessPage />} />
+              <Route path="/auth/settings" element={<SettingsPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
