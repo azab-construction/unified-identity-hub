@@ -94,7 +94,7 @@ const AzaBotChat = () => {
             apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
             Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
-          body: JSON.stringify({ text, voiceId: "H6NRI9ejhUeWVch6GoXR" }),
+          body: JSON.stringify({ text, voiceId: "EXAVITQu4vr4xnSDxMaL" }),
         }
       );
 
