@@ -13,6 +13,7 @@ import AuthLoginPage from "./pages/auth/AuthLoginPage.tsx";
 import CheckEmailPage from "./pages/auth/CheckEmailPage.tsx";
 import VerifyPage from "./pages/auth/VerifyPage.tsx";
 import SuccessPage from "./pages/auth/SuccessPage.tsx";
+import SettingsPage from "./pages/auth/SettingsPage.tsx";
 import DashboardPage from "./pages/DashboardPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/auth/check-email" element={<CheckEmailPage />} />
               <Route path="/auth/verify" element={<VerifyPage />} />
               <Route path="/auth/success" element={<SuccessPage />} />
+              <Route path="/auth/settings" element={<SettingsPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
