@@ -13,6 +13,7 @@ import AuthLoginPage from "./pages/auth/AuthLoginPage.tsx";
 import CheckEmailPage from "./pages/auth/CheckEmailPage.tsx";
 import VerifyPage from "./pages/auth/VerifyPage.tsx";
 import SuccessPage from "./pages/auth/SuccessPage.tsx";
+import SettingsPage from "./pages/auth/SettingsPage.tsx";
 import DashboardPage from "./pages/DashboardPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
