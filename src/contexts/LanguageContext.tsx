@@ -206,7 +206,6 @@ const translations: Record<Lang, Record<string, string>> = {
     "azabot.cancel": "إلغاء",
 
     // Auth Providers
-    "auth.phone": "رقم الهاتف",
     "auth.phone.login": "تسجيل الدخول برقم الهاتف",
     "auth.phone.placeholder": "+966 5X XXX XXXX",
     "auth.phone.send": "إرسال رمز التحقق",
