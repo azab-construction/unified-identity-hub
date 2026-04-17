@@ -176,7 +176,7 @@ const AuthLoginPage = () => {
                 transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
                 className="w-18 h-18 rounded-2xl bg-primary/10 border border-primary/15 flex items-center justify-center mx-auto mb-5 shadow-sm"
               >
-                <span className="font-heading text-4xl font-extrabold text-primary">ع</span>
+                <span className="font-heading text-4xl font-extrabold text-primary">Auth Alazab</span>
               </motion.div>
               <h1 className="font-heading text-2xl font-extrabold text-foreground">{t("otp.login.title")}</h1>
               <p className="text-muted-foreground text-sm mt-2">{t("otp.login.subtitle")}</p>
